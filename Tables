@@ -1,0 +1,132 @@
+create database 1804003030_hopverkefni;
+
+use 1804003030_hopverkefni;
+
+create table flytjandi (
+	id int primary key auto_increment,
+    Nafn varchar(50),
+    Faedingardagur date,
+    danardagur date,
+    flokkur_ID int,     
+    Foreign key(flokkur_ID) references flokkur(ID)
+    ) ;
+create table flokkur (
+	id int primary key auto_increment,
+    nafn varchar(50)
+    ) ;
+create table lag (
+	id int primary key auto_increment,
+    Nafn varchar(50),
+    lengd int,
+    diskur_ID int,
+    Foreign key(diskur_ID) references diskur(ID),
+    flytjandi_ID int,
+    Foreign key(flytjandi_ID) references flytjandi(ID),
+    Lagahofundur_ID int,
+    Foreign key(lagahofundur_ID) references lagahofundur(ID)
+    );
+create table lagahofundur (
+	id int primary key auto_increment,
+    Nafn varchar(50),
+    Faedingardagur date,
+    danardagur date
+    );
+create table diskur (
+	id int primary key auto_increment,
+    Nafn varchar(50),
+    Utgafuár int,
+    tegund_ID int,
+    Foreign key(tegund_ID) references tegund(ID),
+    Utgefandi_ID int,
+    Foreign key(utgefandi_ID) references utgefandi(ID)
+    );
+    drop table diskur;
+    drop table lag;
+create table utgefandi (
+	id int primary key auto_increment,
+    Nafn varchar(50)
+    );
+create table tegund (
+	id int primary key auto_increment,
+    Nafn varchar(50)
+    );
+
+insert into flokkur (nafn)
+
+values ('solo'),
+('duet'),
+('Band');
+
+insert into flytjandi (nafn,Faedingardagur,danardagur,flokkur_ID)
+
+values ('Kanye West',"1977-06-08",null,1),
+('Blink 182',null,null,3),
+('Young Thug',"1991-08-16",null,1),
+('Simon and Garfunkel',null,null,2),
+('Metallica',null,null,3);
+
+insert into lagahofundur (nafn,Faedingardagur,danardagur)
+
+values ('Kanye West',"1977-06-08",null),
+('Blink 182',null,null),
+('Young Thug',"1991-08-16",null),
+('Simon and Garfunkel',null,null),
+('Metallica',null,null);
+
+insert into utgefandi (nafn)
+
+values ('Umg Recordings'),
+('Geffen Records'),
+('Atlantic Recording'),
+('Sony BMG MUSIC ENTERTAINMENT'),
+('Blackened Recording Inc');
+
+insert into tegund (nafn)
+
+values ('Rap'),
+('Punk'),
+('Trap'),
+('Folk Rock'),
+('Rock');
+
+insert into diskur (nafn,Utgafuár,tegund_ID, Utgefandi_ID)
+
+values('Life of Pablo',2016,1,1),
+('My beutiful Dark twisted fantasy',2010,1,1),
+('Enema of the state',1999,2,2),
+('Take off your pants and jacket',2001,2,2),
+('JEFFERY',2016,3,3),
+('Bookends',1968,4,4),
+('Metallica',1991,5,5),
+('Master of Puppets',1986,5,5);
+
+insert into lag (nafn, lengd,diskur_ID,lagahofundur_ID, flytjandi_ID)
+
+values('Ultralight beams',321,1,1,1),
+('Father streaches',136,1,1,1),
+('Wolves',302,1,1,1),
+('All of the lights',362,2,1,1),
+('Gorgeous',358,2,1,1),
+('Power',292,2,1,1),
+('All the small things',168,3,2,2),
+('Adam´s song',250,3,2,2),
+('Wendy clear',170,3,2,2),
+('Online song',146,4,2,2),
+('Reckless Abandoned',186,4,2,2),
+('Stay together for the kids',240,4,2,2),
+('Harambe',190,5,3,3),
+('RiRi',244,5,3,3),
+('Swizz Beatz',196,5,3,3),
+('Mr´s Robinsons',244,6,4,4),
+('Fakin´it',198,6,4,4),
+('At the zoo',144,6,4,4),
+('Nothing else matter',388,7,5,5),
+('The Unforgiven',386,7,5,5),
+('Enter sandman',331,7,5,5),
+('Master of puppets',515,8,5,5),
+('Leper messiah',340,8,5,5),
+('Orion',507,8,5,5);
+create table timi (
+	id int primary key auto_increment,
+	timi int
+    );
