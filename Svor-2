@@ -1,0 +1,67 @@
+use 1804003030_hopverkefni;
+
+## a
+SELECT lag.nafn, diskur.nafn FROM diskur JOIN lag ON lag.diskur_ID = diskur.ID WHERE diskur.nafn = 'Life of pablo';
+
+## b
+SELECT lag.nafn, flytjandi.nafn FROM flytjandi JOIN lag ON lag.flytjandi_ID = flytjandi.ID WHERE flytjandi.nafn = 'Kanye West';
+
+## c
+SELECT lag.nafn, tegund.Nafn FROM diskur JOIN lag ON diskur.ID = lag.diskur_ID JOIN tegund ON tegund.ID = diskur.tegund_ID WHERE tegund.nafn like 'rock';
+
+## d
+SELECT nafn as lag, lengd as 'lengd í sek' FROM lag where lengd > 300;
+
+## e
+SELECT nafn, Utgafuár FROM diskur WHERE Utgafuár > 2010;
+
+## f
+SELECT diskur.nafn, utgefandi.nafn, CONVERT( diskur.utgafuár, CHAR( 4 ) ) FROM diskur JOIN utgefandi ON diskur.utgefandi_id = utgefandi.id GROUP BY utgefandi.nafn ORDER BY utgefandi.nafn;
+## g
+SELECT lag.nafn, lag.lengd, utgefandi.nafn FROM diskur JOIN utgefandi ON utgefandi.ID = diskur.Utgefandi_ID JOIN lag ON diskur.ID = lag.diskur_ID order by lag.lengd DESC LIMIT 5;
+
+## h
+SELECT tegund.Nafn, count(tegund.nafn) FROM diskur JOIN tegund ON tegund.ID = diskur.tegund_ID GROUP BY tegund.nafn ORDER BY COUNT(tegund.nafn) DESC LIMIT 2;
+
+## i
+SELECT lag.nafn, lag.lengd, utgefandi.nafn FROM diskur JOIN utgefandi ON utgefandi.ID = diskur.Utgefandi_ID JOIN lag ON diskur.ID = lag.diskur_ID order by lag.lengd DESC LIMIT 5;
+
+## j virkar ekki
+SELECT diskur.nafn, utgefandi.nafn, diskur.utgafuár FROM diskur JOIN lag ON diskur.lag = lag.id JOIN utgefandi ON utgefandi.id = diskur.utgefandi_id WHERE diskur.utgafuár > 19980000 AND diskur.utgafuár < 20170000 GROUP BY utgefandi.nafn;
+ 
+## k
+SELECT nafn as 'lag nafn byrjar á A' FROM lag where nafn like "A%";
+SELECT nafn as 'lag nafn með s' FROM lag WHERE nafn like "%s%";
+
+## l
+SELECT 'nafn', 'faedingardagur' FROM flytjandi;
+
+## m
+SELECT avg(lengd) as meðallengd FROM lag;
+
+## n
+SELECT flytjandi.nafn as 'flytjandi', count(lag.nafn) FROM flytjandi JOIN lag ON flytjandi.id = lag.flytjandi_id GROUP BY flytjandi.nafn HAVING count(lag.nafn) > 4;
+
+
+## o
+SELECT lag.nafn, flytjandi.nafn, 2017-flytjandi.faedingardagur FROM lag JOIN flytjandi ON lag.flytjandi_id = flytjandi.id GROUP BY lag.nafn ORDER BY flytjandi.faedingardagur LIMIT 4;
+
+
+
+
+## okkar verkefni...
+## 1 Sýna 3 lengstu plötur
+SELECT diskur.nafn, sum(lag.lengd) from diskur JOIN lag ON diskur.ID = lag.diskur_ID GROUP BY diskur.nafn ORDER BY SUM(lag.lengd) DESC LIMIT 3;
+
+## 2 sýna lög sem eru undir 3 mín og tegund rapp
+
+
+## 3 sýna all flytjendur undir 25 ára
+
+
+## 4 slá inn nafn lags og sýna útgefandanafn
+SELECT lag.nafn as 'nafn lags', flytjandi.nafn as flytjandi FROM lag JOIN flytjandi ON flytjandi.ID = lag.flytjandi_ID where lag.nafn like 'wendy clear';
+
+
+## 5
+SELECT lag.nafn as 'nafn lags', diskur.nafn as album FROM lag JOIN diskur ON diskur.ID = lag.diskur_ID where lag.nafn like 'wolves';
